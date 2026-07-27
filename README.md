@@ -47,18 +47,38 @@ This BLAS extension implements the operation
 
 <!-- </equation> -->
 
+where `⊘` denotes the [Hadamard division][hadamard-division].
+
 </section>
 
 <!-- /.intro -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/blas-ext-base-sxdy
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm`][esm-url] branch (see [README][esm-readme]).
+-   If you are using Deno, visit the [`deno`][deno-url] branch (see [README][deno-readme] for usage intructions).
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd`][umd-url] branch (see [README][umd-readme]).
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+To view installation and usage instructions specific to each branch build, be sure to explicitly navigate to the respective README files on each branch, as linked to above.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
 ```javascript
-import sxdy from 'https://cdn.jsdelivr.net/gh/stdlib-js/blas-ext-base-sxdy@esm/index.mjs';
+var sxdy = require( '@stdlib/blas-ext-base-sxdy' );
 ```
 
 #### sxdy( N, x, strideX, y, strideY )
@@ -66,7 +86,7 @@ import sxdy from 'https://cdn.jsdelivr.net/gh/stdlib-js/blas-ext-base-sxdy@esm/i
 Divides elements of a single-precision floating-point strided array `x` by the corresponding elements of a single-precision floating-point strided array `y` and assigns the results to `y`.
 
 ```javascript
-import Float32Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float32@esm/index.mjs';
+var Float32Array = require( '@stdlib/array-float32' );
 
 var x = new Float32Array( [ 2.0, 6.0, 12.0, 20.0, 30.0 ] );
 var y = new Float32Array( [ 2.0, 3.0, 4.0, 5.0, 6.0 ] );
@@ -86,7 +106,7 @@ The function has the following parameters:
 The `N` and stride parameters determine which elements in the strided arrays are accessed at runtime. For example, to divide every other element of `x` by every other element of `y`:
 
 ```javascript
-import Float32Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float32@esm/index.mjs';
+var Float32Array = require( '@stdlib/array-float32' );
 
 var x = new Float32Array( [ 14.0, 2.0, 27.0, 4.0, 33.0, 6.0 ] );
 var y = new Float32Array( [ 7.0, 8.0, 9.0, 10.0, 11.0, 12.0 ] );
@@ -98,7 +118,7 @@ sxdy( 3, x, 2, y, 2 );
 Note that indexing is relative to the first index. To introduce an offset, use [`typed array`][mdn-typed-array] views.
 
 ```javascript
-import Float32Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float32@esm/index.mjs';
+var Float32Array = require( '@stdlib/array-float32' );
 
 // Initial arrays...
 var x0 = new Float32Array( [ 1.0, 18.0, 30.0, 44.0, 5.0, 6.0 ] );
@@ -117,7 +137,7 @@ sxdy( 3, x1, 1, y1, 1 );
 Divides elements of a single-precision floating-point strided array `x` by the corresponding elements of a single-precision floating-point strided array `y` and assigns the results to `y` using alternative indexing semantics.
 
 ```javascript
-import Float32Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float32@esm/index.mjs';
+var Float32Array = require( '@stdlib/array-float32' );
 
 var x = new Float32Array( [ 2.0, 6.0, 12.0, 20.0, 30.0 ] );
 var y = new Float32Array( [ 2.0, 3.0, 4.0, 5.0, 6.0 ] );
@@ -134,7 +154,7 @@ The function has the following additional parameters:
 While [`typed array`][mdn-typed-array] views mandate a view offset based on the underlying buffer, the offset parameters support indexing semantics based on starting indices. For example, to divide the last three elements of `x` by the last three elements of `y`:
 
 ```javascript
-import Float32Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float32@esm/index.mjs';
+var Float32Array = require( '@stdlib/array-float32' );
 
 var x = new Float32Array( [ 1.0, 2.0, 24.0, 36.0, 50.0 ] );
 var y = new Float32Array( [ 6.0, 7.0, 8.0, 9.0, 10.0 ] );
@@ -163,14 +183,9 @@ sxdy.ndarray( 3, x, 1, x.length-3, y, 1, y.length-3 );
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="module">
-
-import discreteUniform from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-array-discrete-uniform@esm/index.mjs';
-import sxdy from 'https://cdn.jsdelivr.net/gh/stdlib-js/blas-ext-base-sxdy@esm/index.mjs';
+```javascript
+var discreteUniform = require( '@stdlib/random-array-discrete-uniform' );
+var sxdy = require( '@stdlib/blas-ext-base-sxdy' );
 
 var x = discreteUniform( 10, -100, 100, {
     'dtype': 'float32'
@@ -184,10 +199,6 @@ console.log( y );
 
 sxdy( x.length, x, 1, y, 1 );
 console.log( y );
-
-</script>
-</body>
-</html>
 ```
 
 </section>
@@ -196,7 +207,125 @@ console.log( y );
 
 <!-- C interface documentation. -->
 
+* * *
 
+<section class="c">
+
+## C APIs
+
+<section class="intro">
+
+</section>
+
+<!-- /.intro -->
+
+<section class="usage">
+
+### Usage
+
+```c
+#include "stdlib/blas/ext/base/sxdy.h"
+```
+
+#### stdlib_strided_sxdy( N, \*X, strideX, \*Y, strideY )
+
+Divides elements of a single-precision floating-point strided array `x` by the corresponding elements of a single-precision floating-point strided array `y` and assigns the results to `y`.
+
+```c
+const float x[] = { 2.0f, 6.0f, 12.0f, 20.0f };
+float y[] = { 2.0f, 3.0f, 4.0f, 5.0f };
+
+stdlib_strided_sxdy( 4, x, 1, y, 1 );
+```
+
+The function accepts the following arguments:
+
+-   **N**: `[in] CBLAS_INT` number of indexed elements.
+-   **X**: `[in] float*` input array.
+-   **strideX**: `[in] CBLAS_INT` stride length for `X`.
+-   **Y**: `[inout] float*` output array.
+-   **strideY**: `[in] CBLAS_INT` stride length for `Y`.
+
+```c
+void stdlib_strided_sxdy( const CBLAS_INT N, const float *X, const CBLAS_INT strideX, float *Y, const CBLAS_INT strideY );
+```
+
+<!--lint disable maximum-heading-length-->
+
+#### stdlib_strided_sxdy_ndarray( N, \*X, strideX, offsetX, \*Y, strideY, offsetY )
+
+<!--lint enable maximum-heading-length-->
+
+Divides elements of a single-precision floating-point strided array `x` by the corresponding elements of a single-precision floating-point strided array `y` and assigns the results to `y` using alternative indexing semantics.
+
+```c
+const float x[] = { 2.0f, 6.0f, 12.0f, 20.0f };
+float y[] = { 2.0f, 3.0f, 4.0f, 5.0f };
+
+stdlib_strided_sxdy_ndarray( 4, x, 1, 0, y, 1, 0 );
+```
+
+The function accepts the following arguments:
+
+-   **N**: `[in] CBLAS_INT` number of indexed elements.
+-   **X**: `[in] float*` input array.
+-   **strideX**: `[in] CBLAS_INT` stride length for `X`.
+-   **offsetX**: `[in] CBLAS_INT` starting index for `X`.
+-   **Y**: `[inout] float*` output array.
+-   **strideY**: `[in] CBLAS_INT` stride length for `Y`.
+-   **offsetY**: `[in] CBLAS_INT` starting index for `Y`.
+
+```c
+void stdlib_strided_sxdy_ndarray( const CBLAS_INT N, const float *X, const CBLAS_INT strideX, const CBLAS_INT offsetX, float *Y, const CBLAS_INT strideY, const CBLAS_INT offsetY );
+```
+
+</section>
+
+<!-- /.usage -->
+
+<section class="notes">
+
+</section>
+
+<!-- /.notes -->
+
+<section class="examples">
+
+### Examples
+
+```c
+#include "stdlib/blas/ext/base/sxdy.h"
+#include <stdio.h>
+
+int main( void ) {
+    // Create strided arrays:
+    const float x[] = { 2.0f, -6.0f, 12.0f, -20.0f, 30.0f, -42.0f, 56.0f, -72.0f };
+    float y[] = { 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f };
+
+    // Specify the number of indexed elements:
+    const int N = 8;
+
+    // Specify strides:
+    const int strideX = 1;
+    const int strideY = 1;
+
+    // Divide elements of `x` by the corresponding elements of `y`:
+    stdlib_strided_sxdy( N, x, strideX, y, strideY );
+
+    // Print the result:
+    for ( int i = 0; i < 8; i++ ) {
+        printf( "y[ %i ] = %f\n", i, y[ i ] );
+    }
+}
+```
+
+</section>
+
+<!-- /.examples -->
+
+</section>
+
+<!-- /.c -->
 
 <!-- Section for related `stdlib` packages. Do not manually edit this section, as it is automatically populated. -->
 
@@ -215,7 +344,7 @@ console.log( y );
 
 ## Notice
 
-This package is part of [stdlib][stdlib], a standard library with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
+This package is part of [stdlib][stdlib], a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
 
 For more information on the project, filing bug reports and feature requests, and guidance on how to develop [stdlib][stdlib], see the main project [repository][stdlib].
 
@@ -280,7 +409,9 @@ Copyright &copy; 2016-2026. The Stdlib [Authors][stdlib-authors].
 
 [mdn-typed-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray
 
-[@stdlib/array/float32]: https://github.com/stdlib-js/array-float32/tree/esm
+[@stdlib/array/float32]: https://github.com/stdlib-js/array-float32
+
+[hadamard-division]: https://en.wikipedia.org/wiki/Hadamard_product_(matrices)#Analogous_operations
 
 <!-- <related-links> -->
 
